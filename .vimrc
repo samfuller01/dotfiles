@@ -2,9 +2,6 @@ filetype on
 filetype plugin indent on
 syntax on
 
-" Short update time
-set updatetime=50
-
 call plug#begin('~/.vim/bundle')
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -30,9 +27,18 @@ Plug 'jremmen/vim-ripgrep'
 
 " Colorscheme
 Plug 'pbrisbin/vim-colors-off'
+Plug 'fcpg/vim-fahrenheit'
+
+" Clojure
+Plug 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace'
+
+" Autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Set settings
+set updatetime=50
 set nocompatible
 set noshowmode
 set noerrorbells
@@ -44,7 +50,7 @@ set undodir=~/.vim/undodir
 set undofile
 set incsearch
 set smartcase
-set nu 
+set nu rnu
 set hlsearch
 set wildmenu
 set lazyredraw
@@ -61,16 +67,32 @@ let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'errorcount', 'filetype' ]]
       \},
       \ 'component_function': {
-      \   'gitbranch': 'gitbranch#name'
+      \   'gitbranch': 'gitbranch#name',
+      \   'errorcount': 'AleErrorCount'
       \},
       \}
 
-let g:ale_linters = {
-      \   'python': ['flake8', 'pylint']
-      \}
+function! AleErrorCount() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? 'OK' : printf(
+  \   '%dE %dW',
+  \   all_errors,
+  \   all_non_errors
+  \)
+endfunction
+
+" ALE Settings
+let g:ale_linters = {'clojure': ['clj-kondo']}
 
 " Colorscheme settings
 set background=dark
@@ -82,20 +104,32 @@ if executable('rg')
   let g:rg_derive_root='true'
 endif
 
-" Nerdtree toggle
-map - :NERDTreeToggle<cr>
-nmap <leader>m :NERDTreeFind<cr>
-
 " Leader settings
 let mapleader='a'
 nmap <leader>n :nohl<cr>
-nmap <leader>f :Rg
+nmap <leader>f :Rg 
+
+" Nerdtree toggle
+map - :NERDTreeToggle<cr>
+nmap <leader>m :NERDTreeFind<cr>
 
 " FZF Settings
 nnoremap <C-p> :FZF<cr>
 
 " Commentary settings
 nnoremap \ :Commentary<cr>
+
+" Autocomplete settings
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~# '\s'
+endfunction
 
 " Remaps
 nnoremap j gj
