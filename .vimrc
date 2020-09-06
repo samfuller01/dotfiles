@@ -2,6 +2,12 @@ filetype on
 filetype plugin indent on
 syntax on
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/bundle')
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -32,16 +38,13 @@ Plug 'fcpg/vim-fahrenheit'
 " Clojure
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace'
-
-" Autocomplete
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Set settings
 set updatetime=50
 set nocompatible
 set noshowmode
-set noerrorbells
+set belloff=all
 set smartindent
 set nowrap
 set noswapfile
@@ -118,18 +121,6 @@ nnoremap <C-p> :FZF<cr>
 
 " Commentary settings
 nnoremap \ :Commentary<cr>
-
-" Autocomplete settings
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1] =~# '\s'
-endfunction
 
 " Remaps
 nnoremap j gj
