@@ -3,8 +3,5 @@ git_branch() {
 }
 
 if [ "$color_prompt" = yes ]; then
-  PS1="[\[\033[36m\]\t\[\033[1;31m\]::\[\033[00m\]\u\[\033[1;31m\]::\[\033[1;
-else
-  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  PS1="[\[\033[36m\]\t\[\033[1;31m\]::\[\033[00m\]\u\[\033[1;31m\]::\[\033[1;32\]\w\[\033[00m\]\$(git_branch)]>"
 fi
-unset color_prompt force_color_prompt
