@@ -28,11 +28,10 @@ Plug 'itchyny/vim-gitbranch'
 " Linter
 Plug 'dense-analysis/ale'
 
-" Ripgrep
-Plug 'jremmen/vim-ripgrep'
-
 " Colorscheme
 Plug 'fcpg/vim-fahrenheit'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Set settings
@@ -89,21 +88,13 @@ function! AleErrorCount() abort
   \)
 endfunction
 
-" ALE Settings
-let g:ale_linters = {'clojure': ['clj-kondo']}
-
 " Colorscheme settings
 set background=dark
-colorscheme off
+colorscheme fahrenheit
 set t_Co=256
 
-" RipGrep things
-if executable('rg')
-  let g:rg_derive_root='true'
-endif
-
 " Leader settings
-let mapleader='a'
+let mapleader=' '
 nmap <leader>n :nohl<cr>
 nmap <leader>f :Rg 
 
