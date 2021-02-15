@@ -32,12 +32,7 @@ Plug 'dense-analysis/ale'
 Plug 'jremmen/vim-ripgrep'
 
 " Colorscheme
-Plug 'pbrisbin/vim-colors-off'
 Plug 'fcpg/vim-fahrenheit'
-
-" Clojure
-Plug 'guns/vim-clojure-static'
-Plug 'tpope/vim-fireplace'
 call plug#end()
 
 " Set settings
@@ -131,6 +126,7 @@ nnoremap $ <nop>
 nnoremap ^ <nop>
 nnoremap ; :
 inoremap jk <esc>
+vnoremap jk <esc>
 nnoremap Q <nop>
 nnoremap <F1> <nop>
 map <S-k> <nop>
