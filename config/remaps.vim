@@ -1,4 +1,3 @@
-" Remaps
 nnoremap j gj
 nnoremap k gk
 nnoremap B ^
@@ -15,3 +14,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>j
+
+" tab remaps
+nnoremap <C-n> :tabnext<cr>
+nnoremap <C-p> :tabnew 
+nnoremap <C-m> :tabprevious<cr>

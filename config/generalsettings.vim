@@ -24,3 +24,6 @@ set completeopt+=menuone
 set completeopt+=noselect
 set shortmess+=c
 set belloff+=ctrlg
+
+" Tab settings
+set tabpagemax=15
