@@ -1,0 +1,9 @@
+set laststatus=2
+set statusline=%f
+set statusline+=\ 
+set statusline+=%m
+set statusline+=%=
+set statusline+=%y
+set statusline+=%2l
+set statusline+=/
+set statusline+=%-2L
