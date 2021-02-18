@@ -1,2 +1,3 @@
 # dotfiles
-Any dotfiles I make will be stored here.
+
+This repository stores all config files for vim, tmux, bash, etc.
