@@ -66,6 +66,8 @@ require('lspconfig').clangd.setup(config({
   end,
 }))
 
+require('lspconfig').vimls.setup(config())
+
 require('lspconfig').jedi_language_server.setup(config())
 
 require('lspconfig').jsonls.setup(config())

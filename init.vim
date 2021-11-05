@@ -49,6 +49,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
+" Loops through directory and sources all VimScript files
 function! SourceDirectory(file)
   for s:fpath in split(globpath(a:file, "*.vim", '\n'))
     exe 'source' s:fpath
