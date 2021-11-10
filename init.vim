@@ -6,8 +6,8 @@ syntax on
 " installed
 let plug_path = stdpath('data') . '/site/autoload/plug.vim'
 if !filereadable(plug_path)
-  silent execute '!curl -fLo ' . plug_path . ' --create-dirs
-        \ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  silent execute '!curl -fLo ' . plug_path . '  --create-dirs 
+        \ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 unlet plug_path
@@ -21,7 +21,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
+Plug 'onsails/lspkind-nvim'
 " Snippets
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
@@ -45,16 +45,12 @@ Plug 'tpope/vim-commentary'
 Plug 'nvim-lualine/lualine.nvim'
 " File Icons
 Plug 'kyazdani42/nvim-web-devicons'
+" Buffer tabline
+Plug 'romgrk/barbar.nvim'
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 
-" Loops through directory and sources all VimScript files
-function! SourceDirectory(file)
-  for s:fpath in split(globpath(a:file, "*.vim", '\n'))
-    exe 'source' s:fpath
-  endfor
-endfunction
-
-call SourceDirectory('~/.config/nvim/custom_scripts')
+" Entirely lua based config
 lua require('spfuller')

@@ -1,19 +1,29 @@
-local pickers = require("telescope.pickers")
-local finders = require("telescope.finders")
-local previewers = require("telescope.previewers")
-local action_state = require("telescope.actions.state")
-local conf = require("telescope.config").values
-local actions = require("telescope.actions")
+local ignore = {
+  'node_modules/.*',
+  'pyenv/*',
+  '__pycache__/*',
+  '.git/.*',
+  '.yarn/.*',
+  'fonts/*',
+  'icons/*',
+  'images/*',
+  'dist/*',
+  'build/*',
+  'yarn.lock',
+  'package-lock.json',
+}
 
-require("telescope").setup({
+require('telescope').setup({
   defaults = {
-    file_sorter = require("telescope.sorters").get_fzy_sorter,
-    prompt_prefix = " >",
+    file_sorter = require('telescope.sorters').get_fzy_sorter,
+    file_ignore_patterns = ignore,
+    prompt_prefix = '> ',
+    layout_strategy = 'vertical',
     color_devicons = true,
 
-    file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-    grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-    qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+    file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+    grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+    qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
   },
   extensions = {
     fzy_native = {
@@ -23,4 +33,16 @@ require("telescope").setup({
   },
 })
 
-require("telescope").load_extension("fzy_native")
+require('telescope').load_extension('fzy_native')
+
+vim.api.nvim_command([[
+  nnoremap <C-p> :Telescope git_files<CR>
+]])
+
+vim.api.nvim_command([[
+  nnoremap <C-f> :Telescope grep_string<CR>
+]])
+
+vim.api.nvim_command([[
+  nnoremap <Leader>pf :Telescope find_files<CR>
+]])

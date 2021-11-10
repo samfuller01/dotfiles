@@ -1,9 +1,6 @@
 local treesitter_config = require('nvim-treesitter.configs')
 
 treesitter_config.setup {
-  indent = {
-    enable = true
-  },
   ensure_installed = {
     'javascript',
     'html',
@@ -14,6 +11,7 @@ treesitter_config.setup {
     'lua',
     'scala',
     'vim',
+    'python',
   },
   highlight = {
     enable = true,
@@ -22,4 +20,7 @@ treesitter_config.setup {
   textobjects = {
     enable = true,
   },
+  indent = {
+    enable = true,
+  }
 }

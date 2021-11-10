@@ -47,7 +47,22 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer' },
+    { name = 'nvim_lua' },
+    { name = 'path' },
   },
+  documentation = {
+    border = 'rounded',
+    winhighlight = 'NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder',
+  },
+  formatting = {
+    format = require('lspkind').cmp_format({with_text = true, menu = ({
+      buffer = '[Buffer]',
+      nvim_lsp = '[LSP]',
+      luasnip = '[LuaSnip]',
+      nvim_lua = '[Lua]',
+      path = '[Path]',
+    })})
+  }
 })
 
 -- setup lspconfig
@@ -96,7 +111,7 @@ require('lspconfig').sumneko_lua.setup(config({
         version = 'LuaJIT',
         path = vim.split(package.path, ';'),
       },
-      daignostics = {
+      diagnostics = {
         globals = { 'vim' },
       },
       workspace = {
